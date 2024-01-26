@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-5">
+		{% for key,mention in mentions %}
+			<div class="container col-xxl-10 px-4">
+				<div class="my-5">
+					<h2 class="mb-2 text-primary fs-3">{{ key + 1 }}.
+						{{ mention.title }}
+					</h2>
+					<div class="px-5">
+						{{ mention.description | raw }}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</section>
+{% endblock %}

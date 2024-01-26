@@ -1,0 +1,32 @@
+<header class="bg-color">
+	<div class="container col-xxl-10 p-4">
+		<div
+			class="row d-flex align-items-center">
+
+			{# Image #}
+			<div class="col-md-4">
+				<a href="{{ path('home') }}">
+					<img src="{{ asset('uploads/gorille-blanc.png') }}" alt="logo" class="img-fluid" width="200" height="200">
+				</a>
+			</div>
+
+			{# Texte #}
+			<div class="col-md-8 mt-2">
+				{% if title is defined %}
+					<h2 class="fs-1 text-white">{{ title }}</h2>
+					<p class="text-white">{{ subtitle }}</p>
+				{% else %}
+					<h2 class="fs-1 text-white">Les rendez-vous du Gorille</h2>
+					<p class="text-white">Toute la programmation triée par catégorie</p>
+					<p>
+						{% include "shared/_tags_list.html.twig" %}
+					</p>
+					<p>{# {% include "shared/_weekbar.html.twig" %} #}
+						{# <a href="{{ path('home') ~ '#prog' }}" class="btn btn-lg btn-outline-light">Programmation<i class="fas fa-arrow-right"></i></a> #}
+					</p>
+				{% endif %}
+			</div>
+
+		</div>
+	</div>
+</header>

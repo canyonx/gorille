@@ -1,0 +1,11 @@
+<h1>{{ news.title | title }}</h1>
+
+<div>
+	{{ news.content | raw }}
+</div>
+<a class="btn btn-primary" href="{{ absolute_url(path('home')) }}">
+	Aller sur le site
+</a>
+<p>
+	Pour vous désinscrire cliquez ici
+</p>

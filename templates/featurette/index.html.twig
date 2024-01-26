@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-5">
+
+		{% for key,featurette in featurettes %}
+			<div class="container col-xxl-10 px-4">
+				<div
+					class="row ">
+
+					{# Image #}
+					<div class="col-10 col-md-5 {% if ((key + 1) / 2) matches '/^\\d+$/' %} order-md-2{% endif %} mb-2">
+						{% if featurette.image %}
+							<img class="rounded img-fluid" src="{{ asset('uploads/' ~ featurette.image) | imagine_filter('featurette') }}" alt="{{ featurette.title }}" width="500" height="500">
+						{% else %}
+							{% include "shared/_image_empty.html.twig" %}
+						{% endif %}
+					</div>
+
+					{# Description #}
+					<div class="col-10 offset-2 col-md-6 offset-md-0 {% if ((key + 1) / 2) matches '/^\\d+$/' %} order-md-1{% endif %}">
+						<h2 class="mb-2 text-primary fs-1">{{ featurette.title }}</h2>
+						<div class="my-3">
+							{{ featurette.description | raw }}
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			{% if not loop.last %}
+				<hr class="event-divider">
+			{% endif %}
+		{% endfor %}
+	</section>
+
+{% endblock %}

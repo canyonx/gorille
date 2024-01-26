@@ -1,0 +1,21 @@
+{% set partners = partnerRepository.findAll() %}
+
+<section class="bg-dark text-light">
+	<div class="container">
+		<h3 class="fs-3 mb-3">Merci à nos partenaires</h3>
+		<div class="row justify-content-center">
+			{% for partner in partners %}
+				<div class="col-auto mb-3">
+					{% if partner.url %}
+						<a href="{{ partner.url }}" target="_blank">
+							<img class="img-fluid" src="{{ asset('uploads/' ~ partner.image) | imagine_filter('partners') }}" alt="{{ partner.name }}">
+						</a>
+					{% else %}
+						<img class="img-fluid" src="{{ asset('uploads/' ~ partner.image) | imagine_filter('partners') }}" alt="{{ partner.name }}">
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+
+	</div>
+</section>

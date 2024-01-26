@@ -1,0 +1,6 @@
+{% set tags = tagService.tagWithEvent() %}
+
+<a class="btn btn-light btn-sm mb-1" href="{{ path('tag', {'slug': 'tout'}) }}">Tout</a>
+{% for tag in tags %}
+	<a class="btn btn-light btn-sm mb-1" href="{{ path('tag', {'slug': tag.slug}) }}">{{ tag.name }}</a>
+{% endfor %}

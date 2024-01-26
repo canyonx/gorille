@@ -1,0 +1,17 @@
+
+{
+	"@context": "https://schema.org",
+	"@type": "MusicEvent",
+	"name": "{{ event.name }}",
+	"startDate":"{{ event.dateAt|date('Y-m-d\\Th:i') }}",
+	"location": {
+		"@type": "Place",
+		"name": "{{ setting.find(1).title }}",
+		"address": "{{ setting.find(1).address }}"
+	},
+	"performer": {
+			"@type": "MusicGroup",
+			"image": "{{ event.image }}",
+			"name": "{{ event.name }}"
+	}
+}

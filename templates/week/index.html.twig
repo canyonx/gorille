@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{# Défini le lundi et le dimanche de la semaine choisie #}
+{% set monday = (("monday this week +" ~ (week - ("now"|date("W"))) ~ " week")|date) | format_date(pattern="d", locale='fr') %}
+
+{% set sunday = (("sunday this week +" ~ (week - ("now"|date("W"))) ~ " week")|date) | format_date(pattern="d MMMM", locale='fr') | title %}
+
+{% block title %}
+	Programmation du
+	{{ monday }}
+	au
+	{{ sunday }}
+{% endblock %}
+
+{% block body %}
+	{% include "shared/_event_container.html.twig" %}
+{% endblock %}

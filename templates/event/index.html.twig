@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ event.name }}
+{% endblock %}
+
+{% block body %}
+	<section class="mt-5">
+
+		<div
+			class="container col-xxl-10 px-4">
+
+			{# Date #}
+			<h1 class="text-muted">{{ event.dateAt | format_date(pattern="EEEE d MMMM", locale='fr') | title }}</h1>
+			<p class="fs-3 text-muted">à
+				{{ event.dateAt | format_date(pattern="HH'h'mm", locale='fr') }}
+			</p>
+
+			<div
+				class="row ">
+
+				{# Image #}
+				<div class="col-md-5">
+					{% if event.image %}
+						<img class="rounded img-fluid" src="{{ asset('uploads/' ~ event.image) | imagine_filter('event386') }}" alt="{{ event.name }}">
+					{% else %}
+						{% include "shared/_image_empty.html.twig" %}
+					{% endif %}
+				</div>
+
+				{# Description #}
+				<div class="col-md-7">
+
+					<h2 class="mb-2 text-primary fs-1">{{ event.name }}</h2>
+					<p class="mb-3">
+						{% for tag in event.tags %}
+							<a class="btn btn-warning btn-sm mb-1" href="{{ path('tag', {'slug': tag.slug}) }}">{{ tag.name }}</a>
+						{% endfor %}
+					</p>
+					<div class="card-text my-3">{{ event.description | raw }}</div>
+				</div>
+
+			</div>
+
+			{% if event.soundcloud or event.youtube %}
+				<h3 class="text-muted mt-5 mb-3">Découvrir</h3>
+			{% endif %}
+			{% if event.soundcloud %}
+				<div class="my-4">
+					{{ event.soundcloud | raw}}
+				</div>
+			{% endif %}
+			{% if event.youtube %}
+				<div class="d-flex justify-content-center mt-4">
+					<iframe width="100%" height="600px" src="{{ event.youtube }}"></iframe>
+				</div>
+			{% endif %}
+		</div>
+	</section>
+
+{% endblock %}
+
+{% block javascripts %}
+	{# Schema.org Music Event#}
+	{% for tag in event.tags %}
+		{% if tag.slug == 'musique' %}
+			<script type="application/ld+json">
+				{% include "event/info.json" %}
+			</script>
+		{% endif %}
+	{% endfor %}
+{% endblock %}

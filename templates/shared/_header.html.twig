@@ -1,0 +1,34 @@
+<header
+	class="hero bg-color d-flex align-content-center flex-wrap">
+	{# {% include "shared/_navbar.html.twig" %} #}
+	<div class="container col-xxl-8 p-4">
+		<div class="row flex-lg-row align-items-end">
+
+			<div id="anim" class="col-12 col-lg-6">
+				<a href="{{ path('home') }}">
+					<img class="img-fluid" src="{{ asset('uploads/' ~ setting.find(1).image)|imagine_filter('logo_header')}}" alt="logo" width="400" height="400">
+				</a>
+			</div>
+
+			<div class="col-12 col-lg-6 text-white mt-2">
+				<h2 class="fs-1">{{ setting.find(1).subTitle }}</h2>
+				<hr>
+				<p class="date-custom">
+					<i class="fas fa-location"></i>
+					{{ setting.find(1).address }}
+				</p>
+				<p class="mt-5">
+					{% include "shared/_tags_list.html.twig" %}
+				</p>
+				<div class="d-grid gap-2 mt-5">
+					<a href="{{ path('featurette') }}" class="fs-4 btn btn-lg btn-outline-light">Qui sommes-nous
+						<i class="fas fa-arrow-right"></i>
+					</a>
+					<a href="#prog" class="fs-4 btn btn-lg btn-outline-light">Programmation
+						<i class="fas fa-chevron-down"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

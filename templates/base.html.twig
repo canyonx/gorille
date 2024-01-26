@@ -1,19 +1,76 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link
+		rel="shortcut icon" href="{{ asset('uploads/' ~ setting.find(1).image) | imagine_filter('favicon') }}" type="image/png">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+		{# Définition des meta selon les pages #}
+		{% if event.name is defined %}
+			{% set pagetitle = event.name %}
+			{% set image = event.image %}
+			{% set description = event.description %}
+		{% else %}
+			{% set pagetitle = setting.find(1).subtitle %}
+			{% set image = setting.find(1).image %}
+			{% set description = setting.find(1).description %}
+		{% endif %}
+
+		<meta
+		name="description" content="{{ description }}">
+
+		{# Open Graph #}
+		<meta property="og:site_name" content="{{ setting.find(1).title }}">
+		<meta property="og:title" content=" {{ pagetitle ~ ', ' ~ setting.find(1).title }}">
+		<meta property="og:type" content="website"/>
+		<meta property="og:image" content="{{ image | imagine_filter('logo_bg_color')}}">
+		<meta property="og:description" content="{{ description }}">
+
+		<title>
+			{% block title %}Accueil
+			{% endblock %}
+			- Le Gorille
+		</title>
+
+		{# CSS #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{# JS #}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+
+	<body>
+		{# Messages flash #}
+		{% if app.flashes is defined %}
+			<section class="bg-color">
+				<div class="container p-3 text-center text-light">
+					{% for rubrique, messages in app.flashes %}
+						{% for message in messages %}
+							{{ message }}
+						{% endfor %}
+					{% endfor %}
+				</div>
+			</section>
+		{% endif %}
+
+		{# Style en-tete #}
+		{% if header is defined %}
+			{% include "shared/_header.html.twig" %}
+		{% else %}
+			{% include "shared/_navbar.html.twig" %}
+		{% endif %}
+
+		{# Weekbar sous header #}
+		<div class="sticky-top d-flex justify-content-center bg-color py-2" id="prog">
+			{% include "shared/_weekbar.html.twig" %}
+		</div>
+
+		{% block body %}{% endblock %}
+		{% include "shared/_footer.html.twig" %}
+	</body>
 </html>

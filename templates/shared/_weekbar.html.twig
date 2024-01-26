@@ -1,0 +1,28 @@
+{% set btnWeeks = [] %}
+
+{# Nombre de semaines à afficher #}
+{% for key in 0..5 %}
+	{# Jours et numéros de semaine correspondant à un bouton #}
+	{% set btnWeeks = btnWeeks|merge(
+            [ 
+                {
+                    "monday": ("monday this week +" ~ key ~ " week")|date,
+                    "sunday": ("sunday this week +" ~ key ~ " week")|date,
+					"week":   ("now +" ~ key ~ " week")|date("W")
+                }
+            ]
+        )
+    %}
+{% endfor %}
+
+<nav class="btn-group" role="group" aria-label="Semaine">
+	{% for key,btnWeek in btnWeeks %}
+
+		<a class="btn {% if (week is defined) and (week == btnWeek['week']) %}btn-light{% else %}btn-outline-light{% endif %}" href="{{ path('week', {'week': ("now"|date("W") + key )}) }}">
+			{{ btnWeek['monday'] | format_date(pattern="d", locale='fr') }}
+			-
+			{{ btnWeek['sunday'] | format_date(pattern="d MMMM", locale='fr') | title }}
+		</a>
+
+	{% endfor %}
+</nav>

@@ -1,0 +1,55 @@
+<div class="container col-xxl-10 px-4">
+	<div
+		class="row ">
+
+		{# Date verticale #}
+		<div class="col-2 col-md-1 bar-orange text-vertical py-3 px-auto text-muted fs-3">
+			{{ event.dateAt | format_date(pattern="EEEE d MMMM - HH", locale='fr') | title }}h
+		</div>
+
+		{# Image #}
+		<div class="col-10 col-md-5 {% if ((key + 1) / 2) matches '/^\\d+$/' %} order-md-2{% endif %} mb-2">
+			{% if event.image %}
+				<img class="rounded img-fluid" src="{{ asset('uploads/' ~ event.image) | imagine_filter('event386') }}" alt="{{ event.name }}" width="500" height="500">
+			{% else %}
+				{% include "shared/_image_empty.html.twig" %}
+			{% endif %}
+		</div>
+
+		{# Description #}
+		<div class="col-10 offset-2 col-md-6 offset-md-0 {% if ((key + 1) / 2) matches '/^\\d+$/' %} order-md-1{% endif %}">
+			<h2 class="mb-2 text-primary fs-1">{{ event.name }}</h2>
+			<p>
+				{% for tag in event.tags %}
+					<a class="btn btn-warning btn-sm mb-1" href="{{ path('tag', {'slug': tag.slug}) }}">{{ tag.name }}</a>
+				{% endfor %}
+			</p>
+			<div class="card-text my-3">
+				{{ event.description | raw }}
+			</div>
+			{% if event.soundcloud %}
+				<div class="my-3">
+					{{ event.soundcloud | raw}}
+				</div>
+			{% endif %}
+			<a href="{{ path('event', {'slug': event.slug}) }}" class="btn btn-lg btn-warning mb-2">En savoir plus
+				<i class="fas fa-arrow-right"></i>
+			</a>
+		</div>
+
+	</div>
+
+	{# Schema.org Music Event#}
+	{% for tag in event.tags %}
+		{% if tag.slug == 'musique' %}
+			<script type="application/ld+json">
+				{% include "event/info.json" %}
+			</script>
+		{% endif %}
+	{% endfor %}
+
+</div>
+
+{% if not loop.last %}
+	<hr class="event-divider">
+{% endif %}

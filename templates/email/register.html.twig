@@ -1,0 +1,9 @@
+<h1>Merci de confirmer votre inscription</h1>
+
+<p>
+	En cliquant sur ce lien, vous confirmez votre abonnement à la newsletter
+	<br>
+	<a class="btn btn-primary" href="{{ absolute_url(path('newsletter_confirm', {'id': subscriber.id, 'token': token})) }}">
+		Valider mon inscription
+	</a>
+</p>

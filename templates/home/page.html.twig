@@ -1,0 +1,63 @@
+{# Page du utilisant js pour naviguer entre les semaines #}
+
+{% extends 'base.html.twig' %}
+
+{% set btnWeeks = [] %}
+
+{% for key in 0..3 %}
+	{% set btnWeeks = btnWeeks|merge(
+            [ 
+                {
+                    "monday": ("monday this week +" ~ key ~ " week")|date,
+                    "sunday": ("sunday this week +" ~ key ~ " week")|date,
+                    "week":   ("now +" ~ key ~ " week")|date("W")
+                }
+            ]
+        )
+    %}
+{% endfor %}
+
+{% block body %}
+	<section
+		class="container" id="prog">
+
+		{# Tabs #}
+		<ul class="justify-content-center nav nav-pills my-4" id="myTab" role="tablist">
+			{% for btnWeek in btnWeeks %}
+				<li class="nav-item" role="presentation">
+
+					<button class="fs-5 nav-link {% if loop.first %}active{% endif %}" id="week{{ btnWeek['week'] }}-tab" data-bs-toggle="tab" data-bs-target="#week{{ btnWeek['week'] }}" type="button" role="tab" aria-controls="week{{ btnWeek['week'] }}" aria-selected="true">
+
+						{{ btnWeek['monday'] | format_date(pattern="d", locale='fr') }}
+						-
+						{{ btnWeek['sunday'] | format_date(pattern="d MMMM", locale='fr') | title }}
+
+					</button>
+				</li>
+			{% endfor %}
+		</ul>
+		<hr
+		class="mb-4">
+
+		{# Contenu #}
+		<div class="tab-content" id="myTabContent">
+			{% for btnWeek in btnWeeks %}
+
+				<div
+					class="tab-pane fade {% if loop.first %}show active{% endif %}" id="week{{ btnWeek['week'] }}" role="tabpanel" aria-labelledby="week{{ btnWeek['week'] }}-tab">
+
+					{# Mise en place des sorties #}
+					{% for key,event in events %}
+						{% if event.dateAt|date("W") == btnWeek['week'] %}
+							{% include "shared/_event.html.twig" %}
+						{% endif %}
+					{% endfor %}
+					{# ! Mise en place des sorties #}
+
+				</div>
+
+			{% endfor %}
+		</div>
+
+	</section>
+{% endblock %}

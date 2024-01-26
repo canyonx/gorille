@@ -1,0 +1,42 @@
+<section
+	class="container mt-5">
+
+	{# Titre #}
+	<div class="container col-xxl-10 px-4">
+		<h1 class="text-muted">
+			<span class="text-primary">
+				{{ events|length }}
+				rendez-vous</span>
+
+			{% if week != ("now"|date("W")) %}
+				du
+				{{ (("monday this week +" ~ (week - ("now"|date("W"))) ~ " week")|date) | format_date(pattern="d", locale='fr') }}
+				au
+				{{ (("sunday this week +" ~ (week - ("now"|date("W"))) ~ " week")|date) | format_date(pattern="d MMMM", locale='fr') | title }}
+			{% else %}
+				cette semaine
+			{% endif %}
+		</h1>
+	</div>
+
+	<hr
+	class="event-divider">
+
+	{# Événements #}
+	{% if events %}
+		{% for key,event in events %}
+			{% include "shared/_event.html.twig" %}
+		{% endfor %}
+	{% else %}
+		<div class="text-center my-5" style="min-height:50vh">
+			<p class="fs-2 text-muted">
+				<span class="emoji">
+					'&gt;_&lt;
+				</span>
+				<br><br>
+				Aucune programmation pour le moment
+			</p>
+		</div>
+	{% endif %}
+
+</section>

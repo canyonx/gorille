@@ -1,0 +1,24 @@
+<h1>{{ title }}</h1>
+
+<div>
+	{% for event in events %}
+		<ul>
+			<li>
+				<b>{{ event.name }}</b>
+				-
+				{{ event.dateAt | format_date(pattern="EEEE d MMMM - HH", locale='fr') | title }}h</li>
+			<p>{{ event.description | raw }}</p>
+		</ul>
+
+	{% endfor %}
+</div>
+<p>
+	<a class="btn btn-primary" href="{{ absolute_url(path('home')) }}">
+		Aller sur le site
+	</a>
+</p>
+<p>
+	<a class="btn btn-primary" href="{{ absolute_url(path('newsletter_unsubscribe', {'id': subscriber.id, 'token': subscriber.validationToken})) }}">
+		Se désabonner
+	</a>
+</p>

@@ -1,0 +1,74 @@
+<footer class="bg-dark text-light py-5 mt-5">
+	{% include "shared/_partner.html.twig" %}
+	<hr class="container event-divider">
+	<section class="container-fluid col-xxl-10">
+		<div class="row d-flex align-items-top">
+
+			<div class="col-6 col-md-3 mb-3">
+				<h5>
+					Plan du site
+				</h5>
+				<a class="link-primary" href="{{ path('home') ~ '#prog' }}">Programmation</a>
+				<br>
+				<a class="link-primary" href="{{ path('tag', {'slug': 'tout'})}}">Catégories</a>
+				<br>
+				<a class="link-primary" href="{{ path('featurette') }}">Qui sommes-nous</a>
+				<br>
+				<a class="link-primary" href="{{ path('legal') }}">Mentions légales</a>
+			</div>
+
+			<div class="col-6 col-md-3 mb-3">
+				<h5 class="mb-3">
+					Newsletter
+				</h5>
+				<a href="{{ path('newsletter_subscribe') }}" class="btn btn-primary">Je m'inscris
+					<i class="fas fa-arrow-right"></i>
+				</a>
+
+			</div>
+
+			<div class="col-6 col-md-3 mb-3">
+				<h5 class="mb-3">
+					&copy;
+					{{ "now"|date("Y") }}
+					-
+					{{ setting.find(1).title }}
+				</h5>
+				<p>
+					<i class="fa-solid fa-location-dot"></i>
+					{{ setting.find(1).address }}
+				</p>
+				{% if setting.find(1).facebook %}
+					<a class="nodeco text-white mx-1" href="{{ setting.find(1).facebook }}" alt="Facebook" target="_blank">
+						<i class="fa-brands fa-facebook-square fa-2x"></i>
+					</a>
+				{% endif %}
+				{% if setting.find(1).instagram %}
+					<a class="nodeco text-white mx-1" href="{{ setting.find(1).instagram }}" alt="Instagram" target="_blank">
+						<i class="fa-brands fa-instagram fa-2x"></i>
+					</a>
+				{% endif %}
+				{% if setting.find(1).google %}
+					<a class="nodeco text-white mx-1" href="{{ setting.find(1).google }}" alt="Google" target="_blank">
+						<i class="fa-brands fa-google fa-2x"></i>
+					</a>
+				{% endif %}
+			</div>
+
+			<div class="col-6 col-md-3 mb-3">
+				<h5 class="mb-3">
+					{{ setting.find(1).contactTitle }}
+				</h5>
+				<i class="fa-solid fa-phone"></i>
+				{{ setting.find(1).phone }}
+				<br><br>
+				<i class="fa-solid fa-envelope"></i>
+				{{ setting.find(1).email }}
+			</div>
+
+		</div>
+		<div class="text-center small mt-4 text-muted">
+			- Création Mattéo Dauchez -
+		</div>
+	</section>
+</footer>

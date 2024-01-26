@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-5" style="min-height:50vh">
+		<div class="container col-xxl-10 px-4">
+			<h1 class="text-primary">Grrrrrrr !</h1>
+			<p>Il semble que cette page n'existe pas.</p>
+			<a href="{{ path('home') }}" class="btn btn-primary text-light">Revenir à l'accueil</a>
+		</div>
+	</section>
+{% endblock %}

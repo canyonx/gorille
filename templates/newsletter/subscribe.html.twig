@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription à la Newsletter
+{% endblock %}
+
+{% block body %}
+	<section class="mt-5">
+
+		<div class="container col-xxl-6 px-4">
+
+			<h1 class="text-muted">Inscription à la Newsletter</h1>
+			<p>En vous inscrivant à la newsletter, vous acceptez de recevoir des emails de notre part</p>
+			<ul>
+				<li>Le programme de la semaine tous les lundis</li>
+				<li>Une newsletter occasionnelle pour vous tenir informé des nouveautés</li>
+			</ul>
+			<hr class="event-divider">
+			<div class="alert alert-secondary">
+				{{ form_start(form) }}
+				{{ form_row(form.email) }}
+				{{ form_row(form.isRgpd) }}
+				<div class="d-flex justify-content-center">
+					{{ form_row(form.submit) }}
+				</div>
+
+				{{ form_end(form) }}
+				<i class="fas fa-info-circle"></i>
+				Un e-mail va vous être envoyé, merci de valider votre adresse en cliquant sur le lien.
+			</div>
+		</div>
+	</section>
+{% endblock %}

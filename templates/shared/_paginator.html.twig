@@ -1,0 +1,33 @@
+{# 
+
+Nécessite venant du controlleur
+
+events[] : venant de paginator EventRepository->getEventPaginatorByTag
+previous : page précédente
+next : page suivante
+pages : nombre total de pages
+
+#}
+
+{% if pages > 1 %}
+	<div class="d-flex justify-content-center">
+		<div
+			class="btn-group" role="group" aria-label="Pagination">
+			{# Précédent #}
+			<a class="btn btn-warning {% if previous == 0 %}disabled{% endif %}" href="{{ path('tag', { 'slug': slug, 'page': previous }) }}">
+				<i class="fas fa-chevron-left"></i>
+				Précédent</a>
+
+			{# Liste #}
+			{% for key in 1..(pages) %}
+				<a class="btn btn-warning {% if key == (next - 1) %}disabled{% endif %}" href="{{ path('tag', { 'slug': slug, 'page': key }) }}">{{ key }}
+				</a>
+			{% endfor %}
+
+			{# Suivant #}
+			<a class="btn btn-warning {% if (next - 1) == pages %}disabled{% endif %}" href="{{ path('tag', { 'slug': slug, 'page': next }) }}">Suivant
+				<i class="fas fa-chevron-right"></i>
+			</a>
+		</div>
+	</div>
+{% endif %}

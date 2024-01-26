@@ -1,5 +1,12 @@
 twig:
-    default_path: '%kernel.project_dir%/templates'
+    default_path: "%kernel.project_dir%/templates"
+    form_themes: ["bootstrap_5_layout.html.twig"]
+    globals:
+        tagService: "@App\\Classe\\TagService"
+        setting: "@App\\Repository\\SettingRepository"
+        partnerRepository: "@App\\Repository\\PartnerRepository"
+    date:
+        timezone: "Europe/Paris"
 
 when@test:
     twig:

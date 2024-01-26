@@ -1,0 +1,13 @@
+{# Si pas d'image définie #}
+{# {% set randdeg = random(0, 360) %}  ' ~ randdeg ~ ' #}
+{% set color1 = 'background: linear-gradient(45deg, #00d2ff 0%, #3a47d5 100%);' %}
+{% set color2 = 'background: linear-gradient(45deg, #fcff9e 0%, #c67700 100%);' %}
+{% set color3 = 'background: linear-gradient(45deg, #f8ff00 0%, #3ad59f 100%);' %}
+{% set color4 = 'background: linear-gradient(45deg, #3F2B96 0%, #A8C0FF 100%);' %}
+
+{# {% set color = random(['tomato', 'SlateBlue', 'MediumSeaGreen', 'LightSlateGray', 'var(--bs-pink)']) %} #}
+
+{% set color = random([color1, color2, color3, color4]) %}
+
+	<div class="p-4 rounded" style="{{ color }}"> <img class="img-fluid" src="{{ asset('uploads/' ~ setting.find(1).image) | imagine_filter('event386') }}" alt="Le Gorille" width="500" height="500">
+</div>
